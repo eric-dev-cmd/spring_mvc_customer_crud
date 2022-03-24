@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="col-12 my-2">
-				<button class="btn btn-danger">
+				<button class="btn btn-danger" onclick="window.location.href='add';return false;">
 					<b>Add Customer</b>
 				</button>
 
