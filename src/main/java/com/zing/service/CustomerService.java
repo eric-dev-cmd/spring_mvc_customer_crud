@@ -15,4 +15,13 @@ public interface CustomerService {
 	
 	public List<Customer> getCustomers();
 	public void saveCustomer(Customer customer);
+	/**
+	 * @param theId
+	 * @return
+	 */
+	public Customer getCustomer(int theId);
+	/**
+	 * @param theId
+	 */
+	public void deleteCustomer(int theId);
 }

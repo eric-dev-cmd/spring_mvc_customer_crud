@@ -31,4 +31,15 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDAO.saveCustomer(customer);
 	}
 
+	@Transactional
+	public Customer getCustomer(int theId) {
+		return customerDAO.getCustomer(theId);
+	}
+
+	@Transactional
+	public void deleteCustomer(int theId) {
+		customerDAO.deleteCustomer(theId);
+
+	}
+
 }

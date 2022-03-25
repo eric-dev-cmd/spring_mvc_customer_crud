@@ -19,15 +19,15 @@ import com.zing.entity.Customer;
  *
  */
 @Repository
-public class CustomerDAOImpl implements CustomerDAO{
-	
+public class CustomerDAOImpl implements CustomerDAO {
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	public List<Customer> getCustomers() {
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query<Customer> theQuery = currentSession.createQuery("from Customer", Customer.class);
-		List<Customer> customers =  theQuery.getResultList();
+		Query<Customer> theQuery = currentSession.createQuery("from Customer order by lastName", Customer.class);
+		List<Customer> customers = theQuery.getResultList();
 		System.out.println("customers" + customers);
 		return customers;
 	}
@@ -35,7 +35,21 @@ public class CustomerDAOImpl implements CustomerDAO{
 	public void saveCustomer(Customer customer) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		currentSession.saveOrUpdate(customer);
-		
+
+	}
+
+	public Customer getCustomer(int theId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Customer theCustomer = currentSession.get(Customer.class, theId);
+		return theCustomer;
+	}
+
+	public void deleteCustomer(int theId) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		Query theQuery = 
+				currentSession.createQuery("delete from Customer where id=:customerId");
+		theQuery.setParameter("customerId", theId);
+		theQuery.executeUpdate();
 	}
 
 }
