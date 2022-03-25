@@ -5,10 +5,16 @@ package com.zing.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +33,12 @@ import com.zing.service.CustomerService;
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder) {
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
 
 	@GetMapping("/list")
 	public String listCutomers(Model theModel) {
@@ -43,9 +55,13 @@ public class CustomerController {
 	}
 
 	@PostMapping("/saving")
-	public String saveCustomer(@ModelAttribute("customer") Customer theCustomer) {
-		customerService.saveCustomer(theCustomer);
-		return "redirect:/customer/list";
+	public String saveCustomer(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult theBindingResult) {
+		if(theBindingResult.hasErrors()) {
+			return "form-customer";
+		} else {
+			customerService.saveCustomer(theCustomer);
+			return "redirect:/customer/list";
+		}
 	}
 
 	@GetMapping("/update")
@@ -57,10 +73,7 @@ public class CustomerController {
 
 	@GetMapping("/delete")
 	public String deleteCustomer(@RequestParam("customerId") int theId) {
-
-		// delete the customer
 		customerService.deleteCustomer(theId);
-
 		return "redirect:/customer/list";
 	}
 

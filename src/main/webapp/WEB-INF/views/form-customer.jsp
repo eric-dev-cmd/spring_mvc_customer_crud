@@ -24,23 +24,25 @@
 						Manager</h3>
 				</div>
 			</div>
-			<form:form action="saving" modelAttribute="customer"
-				method="POST">
+			<form:form action="saving" modelAttribute="customer" method="POST">
 				<form:hidden path="id" />
 
 				<div class="col-12">
 					<div class="mb-3">
-						<label for="firstName" class="form-label">First Name</label> <form:input path="firstName"
-							type="text" class="form-control" id="firstName"
-							placeholder="Trung"/>
+						<label for="firstName" class="form-label">First Name (*)</label>
+						<form:input path="firstName" type="text" class="form-control"
+							id="firstName" placeholder="Trung" />
+						<form:errors path="firstName" class="text-danger" />
 					</div>
 					<div class="mb-3">
-						<label for="lastName" class="form-label">Last Name</label> <form:input
-							type="text" class="form-control" path="lastName"/>
+						<label for="lastName" class="form-label">Last Name (*)</label>
+						<form:input type="text" class="form-control" path="lastName" />
+						<form:errors path="lastName" class="text-danger" />
 					</div>
 					<div class="mb-3">
-						<label for="email" class="form-label">Email</label> <form:input
-							type="text" class="form-control" path="email"/>
+						<label for="email" class="form-label">Email</label>
+						<form:input type="text" class="form-control" path="email" />
+						<%--  <form:errors path="firstName" class="text-danger" /> --%>
 					</div>
 
 
@@ -54,7 +56,8 @@
 			</form:form>
 			<div class="col-12 my-2">
 				<button class="btn btn-info">
-					<a href="/customer/list"><b>Back to list</b></a>
+					<a href="${pageContext.request.contextPath}/customer/list"><b>Back
+							to list</b></a>
 				</button>
 
 			</div>

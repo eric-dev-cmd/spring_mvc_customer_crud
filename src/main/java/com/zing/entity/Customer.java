@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -22,12 +24,17 @@ public class Customer {
 	@Column(name="id")
 	private int id;
 	
+	@NotNull(message = "First name is required")
+	@Size(min=3, message = "First name must be more than 3 characters")
 	@Column(name="first_name")
 	private String firstName;
 	
+	@NotNull(message = "Last name is required")
+	@Size(min=2, message = "Last name must be more than 2 characters")
 	@Column(name="last_name")
 	private String lastName;
 	
+	@NotNull(message = "Email is required")
 	@Column(name="email")
 	private String email;
 	
