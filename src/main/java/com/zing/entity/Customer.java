@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
@@ -35,9 +38,26 @@ public class Customer {
 	private String lastName;
 	
 	@NotNull(message = "Email is required")
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "contains @")
 	@Column(name="email")
 	private String email;
 	
+	@NotNull(message = "Age is required")
+	@Min(value=0, message = "Age must be greater than or equal to 0")
+	@Max(value=100, message = "Age must be less than or equal to 100")
+	@Column(name="age")
+	private int age;
+	
+	
+	
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 	public Customer() {
 		
 	}

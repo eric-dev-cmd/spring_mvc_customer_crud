@@ -42,9 +42,8 @@
 					<div class="mb-3">
 						<label for="email" class="form-label">Email</label>
 						<form:input type="text" class="form-control" path="email" />
-						<%--  <form:errors path="firstName" class="text-danger" /> --%>
+						<form:errors path="email" class="text-danger" />
 					</div>
-
 
 				</div>
 				<div class="col-12 my-2">
